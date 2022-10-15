@@ -1,0 +1,334 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: rgb(38, 50, 56);
+    font-size: 16px;
+}
+
+html, body, header {
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.edit_wrapper {
+    width: 100%;
+    background: #ddd;
+    margin: auto;
+    height: 100%;
+}
+
+.edit_system {
+    width: calc(100% - 250px);
+    height: 100%;
+    float: left;
+}
+
+.edit_menu {
+    width: 250px;
+    height: 100%;
+    float: left;
+}
+
+.edit_menu select {
+    width: 100%;
+    padding: 10px;
+    object-fit: cover;
+}
+
+option:nth-child(2n+1) {
+    background: #eee;
+}
+
+
+.edit_header {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.mtts_logo{
+    display: block;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    text-indent: -9999px;
+    background: url("../images/mtts.png");
+    background-size: contain;
+    width: 100px;
+    aspect-ratio: 13 / 9;
+    cursor: pointer;
+}
+
+.cat_works {
+    text-align: center;
+    font-size: 18px;
+    line-height: 40px;
+    color: #fff;
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    right: 370px;
+    top: 10px;
+    background-color: rgb(77, 208, 225);
+    border-radius: 10px;
+}
+
+.cat_works:hover {
+    opacity: 0.7;
+}
+
+.cat_photo {
+    text-align: center;
+    font-size: 18px;
+    line-height: 40px;
+    color: #fff;
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    right: 230px;
+    top: 10px;
+    background-color: rgb(82, 225, 77);
+    border-radius: 10px;
+}
+
+.cat_clear{
+    text-align: center;
+    font-size: 18px;
+    line-height: 40px;
+    color: #fff;
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    right: 510px;
+    top: 10px;
+    background-color: rgb(243, 162, 41);
+    border-radius: 10px;
+}
+
+.cat_clear:hover {
+    opacity: 0.7;
+}
+
+.cat_photo:hover {
+    opacity: 0.7;
+}
+
+.edit_header input[type="submit"] {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    right: 10px;
+    top: 10px;
+}
+
+.edit_header input[type="submit"]:hover {
+    opacity: 0.7;
+}
+
+.edit_box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    line-height: 50px;
+}
+
+form {
+    padding-bottom: 50px;
+}
+
+.edit_box label {
+    display: block;
+    width: calc(100% - 40px);
+    margin: auto;
+}
+
+.edit_box input {
+    display: block;
+    width: calc(100% - 40px);
+    margin: auto;
+    padding: 10px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.edit_box textarea {
+    display: block;
+    width: calc(100% - 40px);
+    margin: auto;
+    height: 250px;
+    padding: 10px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.edit_box input[type="submit"]:hover {
+    opacity: 0.6;
+}
+
+input[type="submit"].stksubmit {
+    float: left;
+    color: #fff;
+    border: 0;
+    background-color: rgb(77, 208, 225);
+    width: calc(100% - 160px);
+    margin: 0px 10px;
+}
+
+input[type="submit"].delete {
+    float: left;
+    color: #fff;
+    border: 0;
+    background-color: rgb(218, 52, 52);
+    width: 120px;
+    margin: 0px 10px;
+}
+
+
+h1 {
+    position: absolute;
+    top: calc(50% - 260px);
+    left: calc(50% - 54px);
+    text-indent: -9999px;
+    display: block;
+    background: url(../images/mtts.png);
+    background-size: cover;
+    width: 156px;
+    height: 108px;
+}
+
+.login_box {
+    position: absolute;
+    top: calc(50% - 120px);
+    left: calc(50% - 200px);
+    ;
+    width: 400px;
+    height: 240px;
+    background: rgb(128, 222, 234);
+    object-fit: cover;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.login_box label {
+    display: block;
+    width: 200px;
+    margin-left: 50px;
+}
+
+.login_box input {
+    display: block;
+    object-fit: cover;
+}
+
+.login_box input[type="text"] {
+    width: calc(100% - 100px);
+    padding: 0px 5px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.login_box input[type="password"] {
+    width: calc(100% - 100px);
+    padding: 0px 5px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.login_box input[type="submit"] {
+    width: calc(100% - 100px);
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.login_box input[type="submit"]:hover {
+    opacity: 0.7;
+}
+
+#preview {
+    display: none;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+#preview img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    background: #555;
+}
+
+#preview button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 27px;
+    width: 27px;
+    font-size: 30px;
+    text-align: 30px;
+}
+
+#preview button:hover {
+    opacity: 0.7;
+}
+
+.none{
+    display: none;
+}
+
+.editjoined {
+    display: block;
+    font-size: 21px;
+    width: 100%;
+    height: 100px;
+    background: rgb(211, 184, 31);
+    color: #fff;
+    text-align: center;
+    line-height: 120px;
+    position: fixed;
+    top: -100px;
+    left: 0px;
+    margin: auto;
+    overflow: hidden;
+    opacity: 1;
+    z-index: 10000;
+    animation: fadeout 2s linear forwards;
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateY(100px);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateY(100px);
+    } 
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
