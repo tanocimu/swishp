@@ -15,63 +15,69 @@ take_submit();
     <div class="container" id="container">
         <?php if (login()) {
             show_success_message() ?>
-            <div class="edit_wrapper">
-                <div class="edit_system">
-                    <div class="edit_header">
-                        <a href="../index.php"><label class="mtts_logo">トップページ</label></a>
-                        <label id="cat_clear" class="cat_clear">内容クリア</label>
-                        <label id="cat_photo" class="cat_photo">風景記事投稿</label>
-                        <label id="cat_works" class="cat_works">事業案内投稿</label>
-                        <form method="post" action="index.php">
-                            <input type="submit" name="logout" value="ログアウト">
-                        </form>
-                    </div>
-                    <div class="edit_box">
-                        <form id="stkform" method="post" action="index.php" enctype="multipart/form-data">
-                            <input id="stk_num" type="hidden" name="stknum" value="" readonly>
-                            <label for="stk_cat">カテゴリー</label>
-                            <input id="stk_cat" type="text" name="stkcat" value="stockphoto" readonly>
-                            <label for="stk_title">タイトル</label>
-                            <input id="stk_title" type="text" name="stktitle" value="">
-                            <label for="stk_item">記事</label>
-                            <textarea id="stk_item" type="text" name="stkitem" value=""></textarea>
-                            <label for="stk_image">イメージ画像</label>
-                            <input id="stk_image" type="file" name="stkimage[]" accept="image/*">
-                            <div id="preview"></div>
-                            <input class="stksubmit" type="submit" name="stksubmit" value="JOIN">
-                            <input class="delete" type="submit" name="delete" value="delete">
-                        </form>
-                    </div>
+            <div class="edit_system">
+                <div class="edit_header">
+                    <a href="../index.php"><label class="mtts_logo">トップページ</label></a>
+                    <label id="cat_clear" class="cat_clear">内容クリア</label>
+                    <label id="cat_photo" class="cat_photo">風景記事投稿</label>
+                    <label id="cat_works" class="cat_works">事業案内投稿</label>
+                    <form method="post" action="index.php">
+                        <input type="submit" name="logout" value="ログアウト">
+                    </form>
                 </div>
-                <div class="edit_menu">
-
-                    <?php
-
-                    $pdo = db_access();
-                    $query = "SELECT * FROM stockphoto;";
-                    $result = db_prepare_sql($query, $pdo);
-                    db_close($pdo);
-
-                    echo "<select id='item_select' size='20'>";
-
-                    $php_array = array();
-
-                    foreach ($result as $row) {
-                        echo "<option value='" . $row['num'] . "'>" . $row['title'] . "</option>";
-                        $php_array[] = array(
-                            'num' => $row['num'],
-                            'category' => $row['category'],
-                            'title' => un_enc($row['title']),
-                            'item' => un_enc($row['item']),
-                            'imageurl' => $row['imageurl'],
-                            'updatetime' => $row['updatetime']
-                        );
-                    }
-                    echo "</select>";
-
-                    $json_array = json_encode($php_array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-                    ?>
+                <div class="edit_box">
+                    <form id="stkform" method="post" action="index.php" enctype="multipart/form-data">
+                        <input id="stk_num" type="hidden" name="stknum" value="" readonly>
+                        <label for="stk_cat">カテゴリー</label>
+                        <!--<input id="stk_cat" type="text" name="stkcat" value="stockphoto" readonly>-->
+                        <select name="stkcat" id="stk_cat">
+                            <option value="stockphoto">風景／フォト</option>
+                            <option value="works">事業案内</option>
+                            <option value="topimagetext" disabled="disabled">サムネール文章</option>
+                            <option value="toprighttext" disabled="disabled">サムネール右側の縦書き文章</option>
+                            <option value="mainlefttext" disabled="disabled">メインスペース左側</option>
+                            <option value="mainrighttext" disabled="disabled">メインスペース右側</option>
+                        </select>
+                        <label for="stk_title">タイトル</label>
+                        <input id="stk_title" type="text" name="stktitle" value="">
+                        <label for="stk_item">記事</label>
+                        <textarea id="stk_item" type="text" name="stkitem" value=""></textarea>
+                        <label for="stk_image">イメージ画像</label>
+                        <input id="stk_image" type="file" name="stkimage[]" accept="image/*">
+                        <div id="preview"></div>
+                        <input class="stksubmit" type="submit" name="stksubmit" value="投稿">
+                        <input class="delete" type="submit" name="delete" value="削除">
+                    </form>
                 </div>
+            </div>
+            <div class="edit_menu">
+                <h2>投稿した記事一覧</h2>
+                <?php
+                $pdo = db_access();
+                $query = "SELECT * FROM stockphoto;";
+                $result = db_prepare_sql($query, $pdo);
+                db_close($pdo);
+
+                echo "<select id='item_select' size='20'>";
+
+                $php_array = array();
+
+                foreach ($result as $row) {
+                    echo "<option value='" . $row['num'] . "'>" . $row['title'] . "</option>";
+                    $php_array[] = array(
+                        'num' => $row['num'],
+                        'category' => $row['category'],
+                        'title' => un_enc($row['title']),
+                        'item' => un_enc($row['item']),
+                        'imageurl' => $row['imageurl'],
+                        'updatetime' => $row['updatetime']
+                    );
+                }
+                echo "</select>";
+
+                $json_array = json_encode($php_array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+                ?>
+
             </div>
         <?php } else {
             show_login_form();
@@ -140,6 +146,7 @@ take_submit();
                     removeImage();
                     break;
                 case "cat_clear":
+                    removeImage();
                     form_reset();
                     break;
             }

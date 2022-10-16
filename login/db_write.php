@@ -75,6 +75,12 @@ function shelfmng_submit()
         header('Location: ./');
         exit;
     } else if (isset($_POST['delete']) && $_POST['stknum'] != "") {
+        // ファイル削除
+        echo "aaaaaaaaaaaaaa";
+        echo $_FILES['stkimage']['name'][0];
+        return;
+
+        // DB削除
         $pdo = db_access();
         $sql = "DELETE FROM stockphoto WHERE stockphoto.num = '" . $_POST['stknum'] . "';";
         db_prepare_sql($sql, $pdo);
