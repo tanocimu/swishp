@@ -188,26 +188,30 @@ option:nth-child(2n+1) {
     border-radius: 8px;
 }
 
-.edit_box input[type="submit"]:hover {
+.edit_box button:hover {
     opacity: 0.6;
 }
 
-input[type="submit"].stksubmit {
+button.stksubmit {
     float: left;
     color: #fff;
     border: 0;
     background-color: rgb(77, 208, 225);
     width: calc(100% - 160px);
+    height: 50px;
     margin: 0px 20px 0px 20px;
+    border-radius: 10px;
 }
 
-input[type="submit"].delete {
+button.delete {
     float: left;
     color: #fff;
     border: 0;
     background-color: rgb(218, 52, 52);
     width: 100px;
+    height: 50px;
     margin: 0px 20px 0px 0px;
+    border-radius: 10px;
 }
 
 

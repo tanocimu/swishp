@@ -33,10 +33,10 @@ take_submit();
                         <select name="stkcat" id="stk_cat">
                             <option value="stockphoto">風景／フォト</option>
                             <option value="works">事業案内</option>
-                            <option value="topimagetext" disabled="disabled">サムネール文章</option>
-                            <option value="toprighttext" disabled="disabled">サムネール右側の縦書き文章</option>
-                            <option value="mainlefttext" disabled="disabled">メインスペース左側</option>
-                            <option value="mainrighttext" disabled="disabled">メインスペース右側</option>
+                            <option value="topimagetext" hidden>サムネール文章</option>
+                            <option value="toprighttext" hidden>サムネール右側の縦書き文章</option>
+                            <option value="mainlefttext" hidden>メインスペース左側</option>
+                            <option value="mainrighttext" hidden>メインスペース右側</option>
                         </select>
                         <label for="stk_title">タイトル</label>
                         <input id="stk_title" type="text" name="stktitle" value="">
@@ -44,9 +44,10 @@ take_submit();
                         <textarea id="stk_item" type="text" name="stkitem" value=""></textarea>
                         <label for="stk_image">イメージ画像</label>
                         <input id="stk_image" type="file" name="stkimage[]" accept="image/*">
+                        <input id="stk_imageurl" type="hidden" name="imageurl">
                         <div id="preview"></div>
-                        <input class="stksubmit" type="submit" name="stksubmit" value="投稿">
-                        <input class="delete" type="submit" name="delete" value="削除">
+                        <button class="stksubmit" id="stksubmit" name="stksubmit" value="stksubmit">投稿</button>
+                        <button class="delete" id="delete" name="delete" value="delete">削除</button>
                     </form>
                 </div>
             </div>
@@ -94,12 +95,14 @@ take_submit();
             document.getElementById('stk_cat').value = result['category'];
             document.getElementById('stk_title').value = result['title'];
             document.getElementById('stk_item').value = result['item'];
+            var ielem = document.getElementById('stk_imageurl');
 
             if (result['imageurl'] != "") {
                 var elem = document.getElementById('preview');
                 elem.style.display = "block";
 
                 var url = "../stock_images/" + result['imageurl'];
+                ielem.value = url;
                 var img = new Image();
                 img.src = url;
                 elem.appendChild(img);
@@ -114,7 +117,6 @@ take_submit();
         document.getElementById('stk_image').addEventListener('change', function(e) {
             var elem = document.getElementById('preview');
             elem.style.display = "block";
-
             for (var num in e.target.files) {
                 var file = e.target.files[num];
                 var blobUrl = window.URL.createObjectURL(file);
@@ -148,6 +150,43 @@ take_submit();
                 case "cat_clear":
                     removeImage();
                     form_reset();
+                    break;
+                case "delete":
+                    const formData = new FormData();
+                    formData.append(document.getElementById('stk_num'));
+                    formData.append(document.getElementById('stk_imageurl'));
+                    formData.append(document.getElementById('delete'));
+                    fetch('index.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                    break;
+                case "submit":
+                    const formData2 = new FormData();
+                    formData2.append(document.getElementById('stk_num'));
+                    formData2.append(document.getElementById('stk_cat'));
+                    formData2.append(document.getElementById('stk_title'));
+                    formData2.append(document.getElementById('stk_item'));
+                    formData2.append(document.getElementById('stk_image'));
+                    formData2.append(document.getElementById('stksubmit'));
+                    fetch('index.php', {
+                            method: 'POST',
+                            body: formData2
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
                     break;
             }
         });

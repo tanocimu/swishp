@@ -76,9 +76,9 @@ function shelfmng_submit()
         exit;
     } else if (isset($_POST['delete']) && $_POST['stknum'] != "") {
         // ファイル削除
-        echo "aaaaaaaaaaaaaa";
-        echo $_FILES['stkimage']['name'][0];
-        return;
+        if (file_exists($_POST['imageurl'])) {
+            unlink($_POST['imageurl']);
+        }
 
         // DB削除
         $pdo = db_access();
