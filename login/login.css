@@ -350,3 +350,7 @@ h1 {
         transform: translateY(0);
     }
 }
+
+.stk_title_box {
+    display: none;
+}

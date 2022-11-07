@@ -14,17 +14,18 @@
     <section class="stockphoto">
         <h2>風景stock photo</h2>
         <div class="itembox_wrapper">
-            <?php db_itembox_show('stockphoto');?>
+            <?php db_itembox_show('stockphoto', 8); ?>
         </div>
     </section>
     <br clear="all" />
+    <a href="./photo.php" class="next_btn">>>更に多くの写真を見る</a>
 </div>
 <br clear="all" />
 <div class="over_wrapper_2 white">
     <section class="service">
         <h2>事業案内Service</h2>
         <div class="itembox_wrapper">
-        <?php db_itembox_show('works');?>
+            <?php db_itembox_show('works', 8, 1); ?>
         </div>
     </section>
     <br clear="all" />

@@ -18,7 +18,7 @@ take_submit();
             <div class="edit_system">
                 <div class="edit_header">
                     <a href="../index.php"><label class="mtts_logo">トップページ</label></a>
-                    <label id="cat_clear" class="cat_clear">内容クリア</label>
+                    <label id="cat_clear" class="cat_clear">クリア</label>
                     <label id="cat_photo" class="cat_photo">風景記事投稿</label>
                     <label id="cat_works" class="cat_works">事業案内投稿</label>
                     <form method="post" action="index.php">
@@ -38,8 +38,10 @@ take_submit();
                             <option value="mainlefttext" hidden>メインスペース左側</option>
                             <option value="mainrighttext" hidden>メインスペース右側</option>
                         </select>
-                        <label for="stk_title">タイトル</label>
-                        <input id="stk_title" type="text" name="stktitle" value="">
+                        <div class='stk_title_box' id='stk_title_box'>
+                            <label for="stk_title">タイトル</label>
+                            <input id="stk_title" type="text" name="stktitle" value="">
+                        </div>
                         <label for="stk_item">記事</label>
                         <textarea id="stk_item" type="text" name="stkitem" value=""></textarea>
                         <label for="stk_image">イメージ画像</label>
@@ -87,9 +89,30 @@ take_submit();
     <script>
         let js_array = <?php echo $json_array; ?>;
 
+        let stk_itemelem = document.getElementById('stk_item');
+        let stk_catelm = document.getElementById('stk_cat');
+
+        stk_itemelem.addEventListener('blur', function(e) {
+            if (stk_catelm.value == "stockphoto") {
+                let stk_titleelem = document.getElementById('stk_title');
+                stk_titleelem.value = stk_itemelem.value.slice(0, 12);
+            }
+        });
+
+        stk_catelm.addEventListener('change', function(e) {
+            let stk_title_boxelem = document.getElementById('stk_title_box');
+
+            if (stk_catelm.value == "works") {
+                stk_title_boxelem.style.display = "block";
+            }
+            if (stk_catelm.value == "stockphoto") {
+                stk_title_boxelem.style.display = "none";
+            }
+        });
+
         let element = document.getElementById('item_select');
         element.addEventListener('change', function(e) {
-            removeImage();
+            resetPreview();
             var result = js_array.find((v) => v.num == element.value);
             document.getElementById('stk_num').value = element.value;
             document.getElementById('stk_cat').value = result['category'];
@@ -115,6 +138,7 @@ take_submit();
         });
 
         document.getElementById('stk_image').addEventListener('change', function(e) {
+            resetPreview();
             var elem = document.getElementById('preview');
             elem.style.display = "block";
             for (var num in e.target.files) {
@@ -138,17 +162,17 @@ take_submit();
                     document.getElementById('stk_num').value = "";
                     var elem = document.getElementById("stk_cat");
                     elem.value = "works";
-                    removeImage();
+                    resetPreview();
                     break;
                 case "cat_photo":
                     form_reset();
                     document.getElementById('stk_num').value = "";
                     var elem = document.getElementById("stk_cat");
                     elem.value = "stockphoto";
-                    removeImage();
+                    resetPreview();
                     break;
                 case "cat_clear":
-                    removeImage();
+                    resetPreview();
                     form_reset();
                     break;
                 case "delete":
@@ -197,16 +221,14 @@ take_submit();
         }
 
         document.getElementById("btn").addEventListener("click", function() {
-            removeImage();
+            resetPreview();
         });
 
-        function removeImage() {
-            var obj = document.getElementById('stk_image');
-            obj.value = '';
-            var elem = document.getElementById('preview');
-            elem.remove();
-            var imageElem = document.getElementById('stk_image');
-            imageElem.insertAdjacentHTML('afterend', '<div id="preview"></div>');
+        function resetPreview() {
+            var element = document.getElementById("preview");
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
         }
     </script>
 </body>

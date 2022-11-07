@@ -126,30 +126,34 @@ function db_item_show($category = null)
     }
 }
 
-function db_itembox_show($category)
+function db_itembox_show($category, $maxitem, $status = 0)
 {
     $pdo = db_access();
-    $query = "SELECT * FROM stockphoto WHERE category = '" . $category . "' LIMIT 8;";
+    $query = "SELECT * FROM stockphoto WHERE category = '$category' ORDER BY stockphoto.updatetime DESC LIMIT $maxitem;";
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
     foreach ($result as $row) {
         $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         $text = strip_tags($text);
-        echo "
-        <div class='itembox'>
-        <img src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />
-        <p class='title'><a href='#'>" . nl2br(un_enc($row['title'])) . "</a></p>
-        <p class='edittime'>" . nl2br(un_enc($row['updatetime'])) . "</p>
+        $contents = "        <div class='itembox'>
+        <img src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />";
+        if ($status == 1) {
+            $contents .= "<p class='title'><a id='item" . $row['num'] . "' tabindex='-1'>" . nl2br(un_enc($row['title'])) . "</a></p>";
+        }
+
+        $contents .= "<p class='edittime'>" . nl2br(un_enc($row['updatetime'])) . "<lable id='edit" . $row['num'] . "' class='edit'>…</lable></p>
         <p class='item'>" . $text . "</p>
         </div>";
+
+        echo $contents;
     }
 }
 
 function db_images_show()
 {
     $pdo = db_access();
-    $query = "SELECT imageurl FROM stockphoto WHERE category = 'stockphoto' LIMIT 8;";
+    $query = "SELECT imageurl FROM stockphoto WHERE category = 'stockphoto' ORDER BY stockphoto.updatetime DESC LIMIT 8 ;";
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
