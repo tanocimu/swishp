@@ -4,6 +4,7 @@ include("head.php");
 
 <body>
     <?php
+    include("modal.php");
     include("navi.php");
     ?>
     <div class="over_wrapper">

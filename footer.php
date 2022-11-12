@@ -2,4 +2,4 @@
     ©2013 MOUNTAIN TOP TOURIST SERVICES Co.Ltd.
 </footer>
 
-<?php require_once("./tanoc_js.php");?>
+<script src="./js/tanoc_js.js"></script>

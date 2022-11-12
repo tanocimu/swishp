@@ -134,17 +134,19 @@ function db_itembox_show($category, $maxitem, $status = 0)
     db_close($pdo);
 
     foreach ($result as $row) {
-        $text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
-        $text = strip_tags($text);
-        $contents = "        <div class='itembox'>
-        <img src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />";
+        //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
+        //$text = strip_tags($text);
+        $text = nl2br(un_enc($row['item']));
+        $contents = "
+        <div class='itembox'>
+        <a class='itembox_mask' for='trigger' id='ib{$row['num']}' tabindex='-1'></a>
+        <img id='ibimage{$row['num']}' src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />";
         if ($status == 1) {
-            $contents .= "<p class='title'><a id='item" . $row['num'] . "' tabindex='-1'>" . nl2br(un_enc($row['title'])) . "</a></p>";
+            $contents .= "<p class='title'><label id='ibtitle{$row['num']}'>" . nl2br(un_enc($row['title'])) . "</label></p>";
         }
 
-        $contents .= "<p class='edittime'>" . nl2br(un_enc($row['updatetime'])) . "<lable id='edit" . $row['num'] . "' class='edit'>…</lable></p>
-        <p class='item'>" . $text . "</p>
-        </div>";
+        $contents .= "<p class='edittime' id='edittime{$row['num']}'>" . nl2br(un_enc($row['updatetime'])) . "</p><lable id='edit{$row['num']}' class='edit'>…</lable>
+        <p id='ibitem{$row['num']}' class='item'>{$text}</p></div>";
 
         echo $contents;
     }

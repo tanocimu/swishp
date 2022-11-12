@@ -1,4 +1,3 @@
-<div id="fullOverlay"></div>
 <div class="main_wrapper">
     <header>
         <div class="header_left">

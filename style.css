@@ -89,8 +89,8 @@ header {
 .header_left .description {
     padding-top: 30px;
     padding-right: 30px;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 1.5vw;
+    line-height: 2vw;
     color: rgb(22, 56, 58);
     height: calc(100% - 230px);
 }
@@ -339,22 +339,40 @@ nav dl dd label {
 .itembox {
     position: relative;
     width: 22%;
-    height: 300px;
+    aspect-ratio: 1 / 1;
     float: left;
     margin: 0px calc(12% / 8);
+    margin-bottom: 10px;
     font-size: 14px;
     line-height: 20px;
+    cursor: pointer;
+}
+
+.itembox_mask {
+    z-index: 10000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.itembox:hover {
+    opacity: 0.7;
 }
 
 .itembox .item {
+    z-index: 200;
+    position: relative;
     width: 100%;
-    height: 80px;
+    aspect-ratio: 3 / 1;
     overflow-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .itembox img {
+    z-index: 100;
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
@@ -366,24 +384,24 @@ nav dl dd label {
 
 .itembox .edittime {
     position: relative;
-    font-size: 9px;
+    font-size: 11px;
 }
 
-.edittime .edit {
+.edit {
+    z-index: 15000;
     position: absolute;
-    text-align: center;
-    line-height: 22px;
     width: 22px;
     height: 22px;
-    font-size: 1.5em;
-    font-weight: bold;
     display: block;
     border-radius: 50%;
-    top: -3px;
+    top: 57%;
     right: 0;
+    text-indent: -9999px;
+    background: url(./images/3points.png) no-repeat center;
+    background-size: 70%;
 }
 
-.edittime .edit:hover {
+.edit:hover {
     cursor: pointer;
     background-color: rgb(234, 247, 255);
 }

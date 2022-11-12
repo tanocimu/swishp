@@ -1,10 +1,113 @@
-#fullOverlay {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(50, 50, 50, 0.6);
-    z-index: 10000;
+.modal_wrap {
+  width: 100%;
+  height: 100%;
+  background: rgba(50, 50, 50, 0.6);
+  z-index: 18000;
+  box-sizing: border-box;
+}
+
+.zoomContent {}
+
+.zoomContent img {
+  display: block;
+  width: 760px;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.zoomContent p {
+  width: 760px;
+  line-height: 20px;
+}
+
+.zoomContent .item {
+  height: 300px;
+  background-color: rgb(244, 255, 242);
+  overflow: auto;
+}
+
+.zoomContent .edittime {
+  position: relative;
+  font-size: 11px;
+}
+
+.modal_wrap input {
+  display: none;
+}
+
+.modal_overlay {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0s 0.5s;
+  transform: scale(0);
+}
+
+.modal_trigger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.modal_content {
+  align-self: center;
+  position: fixed;
+  inset: 0;
+  width: 800px;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 50px auto;
+  transform: scale(0.3);
+  transition: 0.5s;
+}
+
+.close_button {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 30px;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.modal_wrap input:checked~.modal_overlay {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+}
+
+.modal_wrap input:checked~.modal_overlay .modal_content {
+  transform: scale(1);
+}
+
+.open_button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 30px;
+  margin: auto;
+  padding: 8px 16px;
+  color: #444;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  cursor: pointer;
 }
