@@ -1,4 +1,12 @@
 <?php
+function login()
+{
+    if ($_SESSION['user_name'] == null) {
+        return false;
+    }
+    return $_SESSION['user_name'];
+}
+
 function db_access()
 {
     // DB接続情報
@@ -68,6 +76,9 @@ function shelfmng_submit()
             $sql = "INSERT INTO stockphoto (num, category, title, item, imageurl, updatetime) VALUES (NULL, '" . $_POST['stkcat'] . "', '" . $stringtitle . "', '" . $stringitem . "', '" . $imageurl . "', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
+            if ($imageurl == "" && $_POST['imageurl'] != "") {
+                $imageurl = $_POST['imageurl'];
+            }
             $sql = "UPDATE stockphoto SET title = '" . $stringtitle . "', item = '" . $stringitem . "', imageurl = '" . $imageurl . "' WHERE stockphoto.num = " . $_POST['stknum'];
             db_prepare_sql($sql, $pdo);
         }
@@ -117,12 +128,21 @@ function un_enc($str)
 function db_item_show($category = null)
 {
     $pdo = db_access();
-    $query = "SELECT item FROM stockphoto WHERE category = '" . $category . "';";
+    $query = "SELECT item, num, category FROM stockphoto WHERE category = '" . $category . "';";
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
     foreach ($result as $row) {
-        echo nl2br(un_enc($row['item']));
+        if (login()) {
+            echo "<lable id='et{$row['num']}' class='edit_fixed'>…</lable>";
+        }
+
+        $text = nl2br(un_enc($row['item']));
+        $contents = "
+        <p id='ibitem{$row['num']}' class='item'>{$text}</p>
+        <div id='ibcat{$row['num']}' class='category_hide'>{$row['category']}</div>";
+
+        echo $contents;
     }
 }
 
@@ -145,8 +165,12 @@ function db_itembox_show($category, $maxitem, $status = 0)
             $contents .= "<p class='title'><label id='ibtitle{$row['num']}'>" . nl2br(un_enc($row['title'])) . "</label></p>";
         }
 
-        $contents .= "<p class='edittime' id='edittime{$row['num']}'>" . nl2br(un_enc($row['updatetime'])) . "</p><lable id='edit{$row['num']}' class='edit'>…</lable>
-        <p id='ibitem{$row['num']}' class='item'>{$text}</p></div>";
+        if (login()) {
+            $edit = "<lable id='et{$row['num']}' class='edit'>…</lable>";
+        }
+
+        $contents .= "<p class='edittime' id='edittime{$row['num']}'>" . nl2br(un_enc($row['updatetime'])) . "</p>{$edit}
+        <p id='ibitem{$row['num']}' class='item'>{$text}</p><div id='ibcat{$row['num']}' class='category'>{$row['category']}</div></div>";
 
         echo $contents;
     }

@@ -1,4 +1,4 @@
-if (location.pathname == '/swishp/') {
+if (location.pathname == '/swishp/' || location.pathname == '/swis/') {
     slideShow();
     getSwisTime();
 }
@@ -70,13 +70,15 @@ function getSwisTime() {
 }
 
 const overlay = document.getElementById('modal_content');
-var modal_bool = false;
 document.addEventListener("click", (e) => {
-    console.log("aaaaaaaaaaaaaaaa");
     let pattern = /^ib[0-9]{1,5}/;
+    let pt_edit = /^et[0-9]{1,5}/;
+
     if (pattern.test(e.target.id)) {
         modal_show(e);
-    } else {
+    } else if (pt_edit.test(e.target.id)) {
+        edit_show(e);
+    } else if (e.target.id == 'close_button') {
         modal_close();
     }
 });
@@ -102,14 +104,106 @@ function modal_show(e) {
         <p class='item'>${item}</p>
         `;
 
-    //overlay.style.display = 'block';
-    modal_bool = true;
     overlay.appendChild(box_elem);
 }
 
+function edit_show(e) {
+    document.getElementById('trigger').checked = true;
+
+    let itemnum = e.target.id.slice(2, 5);
+    let itemcat = document.getElementById('ibcat' + itemnum).innerHTML;
+    let titleelem = document.getElementById('ibtitle' + itemnum);
+    let title = 'nontitle';
+    let item = document.getElementById('ibitem' + itemnum).innerHTML;
+    let imageelem = document.getElementById('ibimage' + itemnum);
+
+    if (titleelem != null) {
+        title = titleelem.innerHTML;
+    }
+    else {
+        title = item.slice(0, 12);
+    }
+
+    console.log(title);
+    let imageURL = "";
+    let imagetag = "";
+    let imgsrc = "";
+    if (imageelem) {
+        imagetag = imageelem.getAttribute('src');
+        imageURL = imagetag.slice(15);
+        imgsrc = `<img src='${imagetag}'>`;
+    }
+
+    var box_elem = document.createElement('div');
+    box_elem.id = 'zoomContent';
+    box_elem.className = 'zoomContent';
+    box_elem.innerHTML = `<form id='stkform' method='post' action='' enctype='multipart/form-data'>
+    <input id='stk_num' type='hidden' name='stknum' value='${itemnum}' readonly>
+    <div id='stk_title_box'>
+      <label for='stk_title'>タイトル</label>
+      <input id='stk_title' type='text' name='stktitle' value='${title}'>
+    </div>
+    <label for='stk_item'>記事</label>
+    <textarea id='stk_item' type='text' name='stkitem' value=''>${item}</textarea>
+    <label for='stk_image'>イメージ画像</label>
+    <input id='stk_image' type='file' name='stkimage[]' accept='image/*'>
+    <input id='stk_imageurl' type='hidden' name='imageurl' value='${imageURL}'>
+    <div id='preview'>${imgsrc}</div>
+    <button class='stksubmit' id='stksubmit' name='stksubmit' value='stksubmit'>変更</button>
+    <button class='delete' id='delete' name='delete' value='delete'>削除</button>
+  </form>`;
+
+    overlay.appendChild(box_elem);
+
+    if (imageelem) {
+        var elem = document.getElementById('preview');
+        elem.style.display = "block";
+    }
+
+    document.getElementById('stk_image').addEventListener('change', function (e) {
+        resetPreview();
+        var elem = document.getElementById('preview');
+        elem.style.display = "block";
+        for (var num in e.target.files) {
+            var file = e.target.files[num];
+            var blobUrl = window.URL.createObjectURL(file);
+            var img = new Image();
+            img.src = blobUrl;
+            elem.appendChild(img);
+        }
+    });
+
+    if (itemcat == "works") {
+        document.getElementById('stk_title_box').style.display = "block";
+    }
+}
+
 function modal_close() {
+    while (overlay.firstChild) {
+        overlay.removeChild(overlay.firstChild);
+    }
+
     document.getElementById('trigger').checked = false;
-    modal_bool = false;
-    //overlay.style.display = 'none';
-    overlay.removeChild(overlay.firstChild);
+    console.log('modal close', document.getElementById('trigger').checked);
+}
+
+$(function () {
+    $('a[href^="#"]').click(function () {
+        var href = $(this).attr("href");
+        var target = $(href == "#" || href == "" ? 'html' : href);
+        var position = target.offset().top;
+        var speed = 500;
+        $("html, body").animate({
+            scrollTop: position
+        }, speed, "swing");
+        return false;
+    });
+});
+
+
+function resetPreview() {
+    var element = document.getElementById("preview");
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
 }

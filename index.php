@@ -2,7 +2,7 @@
 include("head.php");
 ?>
 
-<body>
+<body id="top">
         <?php
         include("modal.php");
         include("header.php");

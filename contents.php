@@ -22,7 +22,7 @@
 </div>
 <br clear="all" />
 <div class="over_wrapper_2 white">
-    <section class="service">
+    <section class="service" id="service">
         <h2>事業案内Service</h2>
         <div class="itembox_wrapper">
             <?php db_itembox_show('works', 8, 1); ?>
@@ -31,8 +31,14 @@
     <br clear="all" />
 </div>
 <div class="over_wrapper">
-    <section class="access">
+    <section class="access" id='access'>
         <?php include_once("access.php"); ?>
     </section>
     <br clear="all" />
 </div>
+<a href="#top" class="topreturn">↑</a>
+<?php if (login()) { ?>
+    <a href="./login" class="plusbutton">+</a>
+<?php } else { ?>
+    <a href="./login" class="loginbutton">+</a>
+<?php } ?>

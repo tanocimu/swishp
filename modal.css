@@ -95,23 +95,92 @@
   transform: scale(1);
 }
 
-.open_button {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 30px;
-  margin: auto;
-  padding: 8px 16px;
-  color: #444;
-  font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-  border-radius: 16px;
-  cursor: pointer;
+.zoomContent {
+  position: relative;
+  width: 100%;
+  line-height: 50px;
+  box-sizing: border-box;
 }
+
+.zoomContent form {
+  height: auto;
+  box-sizing: border-box;
+}
+
+.zoomContent select {
+  display: block;
+  width: calc(100% - 40px);
+  margin: auto;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.zoomContent form {
+  box-sizing: border-box;
+}
+
+.zoomContent input {
+  display: block;
+  width: calc(100% - 40px);
+  margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.zoomContent textarea {
+  display: block;
+  width: calc(100% - 40px);
+  margin: auto;
+  height: 250px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.zoomContent button:hover {
+  opacity: 0.6;
+}
+
+button.stksubmit {
+  float: left;
+  color: #fff;
+  border: 0;
+  background-color: rgb(77, 208, 225);
+  width: calc(100% - 160px);
+  height: 50px;
+  margin: 0px 20px 0px 20px;
+  border-radius: 10px;
+}
+
+button.delete {
+  float: left;
+  color: #fff;
+  border: 0;
+  background-color: rgb(218, 52, 52);
+  width: 100px;
+  height: 50px;
+  margin: 0px 20px 0px 0px;
+  border-radius: 10px;
+}
+
+#stk_title_box {
+  display: none;
+}
+
+#preview {
+  display: none;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  padding-bottom: 20px;
+  margin: auto;
+}
+
+#preview img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  background: #555;
+}
+

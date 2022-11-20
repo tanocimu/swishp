@@ -30,7 +30,7 @@ a:hover {
 
 .header_right h1 {
     position: absolute;
-    width: 100%;
+    width: calc(100% - 100px);
     bottom: 50px;
     left: 5%;
     font-size: 5.2vw;
@@ -269,31 +269,33 @@ nav dl {
     margin: auto;
 }
 
-nav dl dd {
+nav dd {
     position: relative;
     text-align: center;
-    padding-top: 15px;
     line-height: 27px;
     width: 160px;
     height: 80px;
     float: left;
     margin: 0px 20px;
+}
+
+nav a {
+    padding-top: 15px;
+    display: block;
+    width: 160px;
+    height: 80px;
+    color: #ffffff;
+    text-decoration: none;
     box-sizing: border-box;
 }
 
-nav dl dd a:link,
-nav dl dd a,
-nav dl dd a:active {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-nav dl dd a:hover {
+nav a:hover {
     opacity: 0.7;
+    color: #ffffff;
     text-decoration: underline;
 }
 
-nav dl dd label {
+nav dd label {
     font-size: 12px;
     display: block;
 }
@@ -312,6 +314,7 @@ nav dl dd label {
 }
 
 .info_left {
+    position: relative;
     float: left;
     padding: 0px 20px 20px 20px;
     width: calc(100% - 400px);
@@ -319,6 +322,7 @@ nav dl dd label {
 }
 
 .info_right {
+    position: relative;
     float: left;
     width: 400px;
     margin-bottom: 30px;
@@ -382,6 +386,14 @@ nav dl dd label {
     font-weight: bold;
 }
 
+.itembox .category {
+    display: none;
+}
+
+.category_hide {
+    display: none;
+}
+
 .itembox .edittime {
     position: relative;
     font-size: 11px;
@@ -401,11 +413,29 @@ nav dl dd label {
     background-size: 70%;
 }
 
+.edit_fixed {
+    z-index: 15000;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    display: block;
+    border-radius: 50%;
+    top: 0;
+    right: 30px;
+    text-indent: -9999px;
+    background: url(./images/3points.png) no-repeat center;
+    background-size: 70%;
+}
+
 .edit:hover {
     cursor: pointer;
     background-color: rgb(234, 247, 255);
 }
 
+.edit_fixed:hover {
+    cursor: pointer;
+    background-color: rgb(234, 247, 255);
+}
 
 a.next_btn {
     display: block;
@@ -463,6 +493,65 @@ footer {
     height: 100px;
 
 }
+
+a.loginbutton {
+    position: fixed;
+    font-weight: bold;
+    text-indent: -9999px;
+    background: url('./images/key.png') no-repeat center;
+    background-size: 27px;
+    background-color: rgb(134, 127, 38);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    bottom: 10px;
+    right: 70px;
+    display: block;
+    z-index: 10000;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: #ffffff;
+}
+
+a.plusbutton {
+    position: fixed;
+    font-weight: bold;
+    font-size: 30px;
+    background-color: rgb(134, 127, 38);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    bottom: 10px;
+    right: 70px;
+    display: block;
+    z-index: 10000;
+    line-height: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: #ffffff;
+}
+
+a.topreturn {
+    position: fixed;
+    font-weight: bold;
+    font-size: 30px;
+    background-color: rgb(171, 71, 188);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    bottom: 10px;
+    right: 10px;
+    display: block;
+    z-index: 10000;
+    line-height: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: #ffffff;
+}
+
 
 @media screen and (max-width:1600px) {
     .main_wrapper {

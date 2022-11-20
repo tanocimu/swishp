@@ -2,14 +2,6 @@
 session_start();
 require_once("../config.php");
 
-function login()
-{
-    if ($_SESSION['user_login'] != true) {
-        return false;
-    }
-    return true;
-}
-
 function show_login_form()
 {
     echo  '
@@ -60,6 +52,7 @@ function take_submit()
                             $row['username'];
                         }
                         $_SESSION['user_login'] = true;
+                        $_SESSION['user_name'] = $row['username'];
                         header('Location: ./');
                         exit();
                     } else {
@@ -75,7 +68,8 @@ function take_submit()
     }
 
     if (isset($_POST['logout'])) {
-        $_SESSION['user_login'] = false;
+        $_SESSION['user_login'] = null;
+        $_SESSION['user_name'] = null;
         $_SESSION = array();
         if (isset($_COOKIE["PHPSESSID"])) {
             setcookie("PHPSESSID", '', time() - 1800, '/');

@@ -1,10 +1,9 @@
 <div class="modal_wrap">
-<input id="trigger" type="checkbox">
+  <input id="trigger" type="checkbox">
   <div class="modal_overlay">
-    <label for="trigger" class="modal_trigger"></label>
+    <label class="modal_trigger" id="close_button"></label>
     <div class="modal_content" id="modal_content">
 
     </div>
-    <label for="trigger" class="close_button">✖️</label>
   </div>
 </div>
