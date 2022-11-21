@@ -77,6 +77,14 @@ header {
     right: 0;
 }
 
+.header_right {
+    position: absolute;
+    width: calc(100% - 100px);
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
 .header_right_top_back {
     position: absolute;
     text-indent: -9999px;
@@ -137,14 +145,6 @@ header {
 
 .header_left .google_map img:hover {
     opacity: 0.7;
-}
-
-.header_right {
-    position: absolute;
-    width: calc(100% - 100px);
-    height: 100%;
-    top: 0;
-    left: 0;
 }
 
 .header_right img {
@@ -424,6 +424,7 @@ nav dd label {
     right: 30px;
     text-indent: -9999px;
     background: url(./images/3points.png) no-repeat center;
+    background-color: #fff;
     background-size: 70%;
 }
 

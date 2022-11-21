@@ -62,6 +62,7 @@ function shelfmng_submit()
         $imageurl = "";
         $stringtitle = enc($_POST['stktitle']);
         $stringitem = enc($_POST['stkitem']);
+        $stringitem = $_POST['stkitem'];
 
         if (!empty($_FILES['stkimage']['tmp_name'][0])) { //ファイルが選択されていれば$imageにファイル名を代入
             for ($i = 0; $i < count($_FILES['stkimage']['name']); $i++) {
