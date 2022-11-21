@@ -553,6 +553,9 @@ a.topreturn {
     color: #ffffff;
 }
 
+.mask_item{
+    display: none;
+}
 
 @media screen and (max-width:1600px) {
     .main_wrapper {

@@ -129,7 +129,7 @@ function un_enc($str)
 function db_item_show($category = null)
 {
     $pdo = db_access();
-    $query = "SELECT item, num, category FROM stockphoto WHERE category = '" . $category . "';";
+    $query = "SELECT item, num, imageurl, updatetime, category FROM stockphoto WHERE category = '" . $category . "';";
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
@@ -142,6 +142,10 @@ function db_item_show($category = null)
         $contents = "
         <p id='ibitem{$row['num']}' class='item'>{$text}</p>
         <div id='ibcat{$row['num']}' class='category_hide'>{$row['category']}</div>";
+
+        if ($row['imageurl'] != "") {
+            $contents .= "<img id='ibimage{$row['num']}' src='./stock_images/{$row['imageurl']}'><label id='edittime{$row['num']}'>{$row['updatetime']}</label>";
+        }
 
         echo $contents;
     }

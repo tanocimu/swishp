@@ -115,7 +115,6 @@ function edit_show(e) {
     let titleelem = document.getElementById('ibtitle' + itemnum);
     let title = 'nontitle';
     let item = document.getElementById('ibitem' + itemnum).innerHTML.replace(/<br>/g, "");
-    console.log(item);
     let imageelem = document.getElementById('ibimage' + itemnum);
 
     if (titleelem != null) {

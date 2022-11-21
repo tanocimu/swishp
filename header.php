@@ -15,8 +15,13 @@
             <div class="header_right_top_back">topback</div>
             <h1><?php db_item_show('topimagetext'); ?></h1>
             <a href="#" class="btn inquiry">Inquiry<label>お問い合わせ</label></a>
-            <a href="#" class="btn staff">Recruit<label>スタッフ募集</label></a>
+            <a for="trigger" id="ib6" tabindex="-1" class="btn staff">Recruit<label>スタッフ募集</label></a>
             <a href="#service" class="btn profile">Service<label>事業案内</label></a>
+            <div class="mask_item">
+                <label>お問い合わせ</label>
+                <label>スタッフ募集</label>
+                <?php db_item_show('recruit'); ?>
+            </div>
         </div>
     </header>
 </div>
