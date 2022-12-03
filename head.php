@@ -26,4 +26,5 @@ shelfmng_submit();
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="smaho.css">
 </head>
