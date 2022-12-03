@@ -1,4 +1,5 @@
-if (location.pathname == '/swishp/' || location.pathname == '/swis/') {
+console.log("aaaaaaaaaaaa",location.pathname);
+if (location.pathname == '/swishp/' || location.pathname == '/index.php') {
     slideShow();
     getSwisTime();
 }

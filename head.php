@@ -18,9 +18,6 @@ shelfmng_submit();
     <meta property="og:url" content="https:///">
     <meta property="og:description" content="Mountain Top Tourist Servicesの説明を記載">
 
-
-    <meta name="robots" content="noindex">
-
     <title>Mountain Top Tourist Services</title>
 
     <script src="./js/jquery.min.js"></script>
@@ -30,5 +27,3 @@ shelfmng_submit();
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
 </head>
-
-

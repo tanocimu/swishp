@@ -30,12 +30,6 @@
     </section>
     <br clear="all" />
 </div>
-<div class="over_wrapper">
-    <section class="access" id='access'>
-        <?php include_once("access.php"); ?>
-    </section>
-    <br clear="all" />
-</div>
 <a href="#top" class="topreturn">↑</a>
 <?php if (login()) { ?>
     <a href="./login" class="plusbutton">+</a>

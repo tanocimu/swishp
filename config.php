@@ -19,11 +19,11 @@ define('DB_STORAGE', 'mysql');
 //データベースのホスト名
 define('DB_HOSTNAME', 'localhost');
 //データベース名
-define('DB_DATABASE', 'test');
+define('DB_DATABASE', 'mtts1');
 //データベースユーザー名
-define('DB_USERNAME', 'weweweb');
+define('DB_USERNAME', 'mtts1');
 //データベースパスワード
-define('DB_PASSWORD', 'P00027511wy3');
+define('DB_PASSWORD', 'Jungfrau12');
 //データベース文字コード設定
 define('DB_CHARSET', false);
 //プレフィックス

@@ -7,6 +7,42 @@ function login()
     return $_SESSION['user_name'];
 }
 
+function private_setting()
+{
+    $pdo = db_access();
+    $query = "SELECT * from systemtable";
+    $result = db_prepare_sql($query, $pdo);
+    db_close($pdo);
+
+    foreach ($result as $row) { 
+        if ($row['private'] > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function private_check()
+{
+    if (private_setting()) {
+        echo "checked";
+    }
+}
+
+function private_checkbox($cheked)
+{
+    $query = "";
+    if ($cheked == "checked") {
+        $query = "UPDATE systemtable SET private = '-1' WHERE systemtable.num = 1";
+    } else {
+        $query = "UPDATE systemtable SET private = '1' WHERE systemtable.num = 1";
+    }
+
+    $pdo = db_access();
+    db_prepare_sql($query, $pdo);
+    db_close($pdo);
+}
+
 function db_access()
 {
     // DB接続情報
@@ -99,6 +135,8 @@ function shelfmng_submit()
         $_SESSION["success"] = "delete";
         header('Location: ./');
         exit;
+    } else if (isset($_POST['onoff'])) {
+        private_checkbox($_POST['onoff']);
     }
     return;
 }

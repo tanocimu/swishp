@@ -5,8 +5,7 @@ require_once("../config.php");
 function show_login_form()
 {
     echo  '
-<h1 class="login_logo">MTTS</h1>
-id:yoshida pass:test
+<h1 class="login_logo"><a href="../index.php">MTTS</a></h1>
 <div class="login_box">
     <form method="post" action="index.php">
         <label for="userid">ID</label>

@@ -17,6 +17,12 @@ take_submit();
             show_success_message() ?>
             <div class="edit_system">
                 <div class="edit_header">
+                    <form class="switchArea" action="index.php" method="post" name="switchArea">
+                        <input type="checkbox" id="switch1" name="switch1" <?php private_check(); ?>>
+                        <label for="switch1"><span></span></label>
+                        <div id="swImg"></div>
+                        <input type="hidden" id="onoff" name="onoff" value="<?php private_check(); ?>">
+                    </form>
                     <a href="../index.php"><label class="mtts_logo">トップページ</label></a>
                     <label id="cat_clear" class="cat_clear">クリア</label>
                     <label id="cat_photo" class="cat_photo">風景記事投稿</label>
@@ -91,6 +97,23 @@ take_submit();
 
         let stk_itemelem = document.getElementById('stk_item');
         let stk_catelm = document.getElementById('stk_cat');
+
+        document.getElementById('switch1').addEventListener('change', function(e) {
+            document.forms.switchArea.submit();
+            const formData = new FormData();
+            formData.append(document.getElementById('onoff'));
+            fetch('index.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
 
         stk_itemelem.addEventListener('blur', function(e) {
             if (stk_catelm.value == "stockphoto") {
