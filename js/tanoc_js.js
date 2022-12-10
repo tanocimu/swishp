@@ -1,5 +1,5 @@
-console.log("aaaaaaaaaaaa",location.pathname);
-if (location.pathname == '/swishp/' || location.pathname == '/index.php') {
+console.log(location.pathname);
+if (location.pathname == '/swishp/' || location.pathname == '/index.php' || location.pathname == '/') {
     slideShow();
     getSwisTime();
 }
@@ -65,7 +65,7 @@ function getSwisTime() {
             <label class="time">${hour}:${minutes}</label>
     `;
     elem.appendChild(new_elem);
-    console.log(date.toLocaleTimeString('en-US', {
+    console.log("swis time", date.toLocaleTimeString('en-US', {
         timeZone: 'Europe/Zurich'
     }));
 }

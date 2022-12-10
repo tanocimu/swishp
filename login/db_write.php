@@ -14,7 +14,7 @@ function private_setting()
     $result = db_prepare_sql($query, $pdo);
     db_close($pdo);
 
-    foreach ($result as $row) { 
+    foreach ($result as $row) {
         if ($row['private'] > 0) {
             return true;
         }
@@ -104,7 +104,10 @@ function shelfmng_submit()
             for ($i = 0; $i < count($_FILES['stkimage']['name']); $i++) {
                 $imageurl = uniqid(mt_rand(), true); //ファイル名をユニーク化
                 $imageurl .= '.' . substr(strrchr($_FILES['stkimage']['name'][$i], '.'), 1); //アップロードされたファイルの拡張子を取得
-                move_uploaded_file($_FILES['stkimage']['tmp_name'][$i],  DIR_STOCKIMAGES . $imageurl); //imagesディレクトリにファイル保存
+
+                $str = "@" . date('Y') . " MOUNTAIN TOP TOURIST SERVICES.";
+                imageResizeAndWritetext($_FILES['stkimage']['tmp_name'][$i], $imageurl, $str);
+                //move_uploaded_file($_FILES['stkimage']['tmp_name'][$i],  DIR_STOCKIMAGES . $imageurl); //imagesディレクトリにファイル保存
             }
         }
 
@@ -139,6 +142,94 @@ function shelfmng_submit()
         private_checkbox($_POST['onoff']);
     }
     return;
+}
+
+// 画像のリサイズと文字入れ
+function imageResizeAndWritetext($filename, $rename, $text)
+{
+    move_uploaded_file($filename, DIR_STOCKIMAGES . $rename); // tmpファイルを画像ファイルにして保存
+
+    $file_pass = DIR_STOCKIMAGES . $rename;
+
+    $new_image = "";
+    if (file_exists($file_pass) && $type = exif_imagetype($file_pass)) {
+        switch ($type) {
+            case IMAGETYPE_GIF:
+                $new_image = imagecreatefromgif($file_pass);
+                break;
+            case IMAGETYPE_JPEG:
+                $new_image = imagecreatefromjpeg($file_pass);
+                break;
+            case IMAGETYPE_PNG:
+                $new_image = imagecreatefrompng($file_pass);
+                break;
+            default:
+                echo "画像ファイルではない";
+                return;
+        }
+    }
+
+    $size = getimagesize($file_pass);
+    $re_size = imageSizeStretch($size, 1080);
+
+    // 画像のリサイズ
+    $stretch_image = imagecreatetruecolor($re_size[0], $re_size[1]);
+    imagecopyresampled($stretch_image, $new_image, 0, 0, 0, 0, $re_size[0], $re_size[1], $size[0], $size[1]);
+
+    // 画像に文字を挿入
+    if ($text != "") {
+        $font = __DIR__ . '/meiryob.woff';
+        //$white = imagecolorallocate($stretch_image, 255, 255, 255);
+        $alpha = imagecolorallocatealpha($stretch_image, 255, 255, 255, 100);
+
+        $size = 27;
+        $angle = 0;
+        $x = 10;         // 左からの座標(ピクセル)
+        $y = 10 + $size; // 上からの座標(ピクセル)
+        $line_height   = 1;
+
+        imagefttext(
+            $stretch_image,     // 挿入先の画像
+            $size,      // フォントサイズ
+            $angle,     // 文字の角度
+            $x,         // 挿入位置 x 座標
+            $y,         // 挿入位置 y 座標
+            $alpha,     // 文字の色
+            $font,  // フォントファイル
+            $text,      // 挿入文字列
+            ['linespacing' => $line_height]
+        );
+    }
+
+    $upload_dir    = DIR_STOCKIMAGES; // 保存ディレクトリ
+
+    switch ($type) {
+        case IMAGETYPE_GIF:
+            imagegif($stretch_image, $upload_dir . $rename);
+            break;
+        case IMAGETYPE_JPEG:
+            imagejpeg($stretch_image, $upload_dir . $rename);
+            break;
+        case IMAGETYPE_PNG:
+            imagepng($stretch_image, $upload_dir . $rename);
+            break;
+        default:
+            echo "画像ファイルではない";
+            return;
+    }
+
+    imagedestroy($new_image);
+    imagedestroy($stretch_image);
+}
+
+function imageSizeStretch($size, $newWidth)
+{
+    // 横幅を指定して画像を伸縮
+    $re_size[0] = $newWidth;
+    $ratio = $newWidth / $size[0]; // 横幅
+    $re_size[1] = floor($size[1] * $ratio);
+
+    return $re_size;
 }
 
 function show_success_message()

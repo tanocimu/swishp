@@ -145,6 +145,7 @@
         width: 230px;
         height: 70px;
         border-bottom: 1px solid #555;
+        z-index: 10000;
     }
 
     .swis_infomation .year {
