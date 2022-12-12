@@ -144,7 +144,8 @@
         right: 70px;
         width: 230px;
         height: 70px;
-        border-bottom: 1px solid #555;
+        border-bottom: 1px solid rgb(22, 56, 58);
+        color: rgb(22, 56, 58);
         z-index: 10000;
     }
 
@@ -153,7 +154,6 @@
         top: 20px;
         left: 0;
         font-size: 14px;
-        color: #444;
     }
 
     .swis_infomation .month {
@@ -175,7 +175,6 @@
         top: 20px;
         left: 115px;
         font-size: 12px;
-        color: #444;
     }
 
     .swis_infomation .ampm {
@@ -183,7 +182,6 @@
         top: 20px;
         left: 150px;
         font-size: 12px;
-        color: #444;
     }
 
     .swis_infomation .time {
@@ -353,6 +351,11 @@
         overflow-wrap: break-word;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .itembox .item a,
+    .itembox .item a:link {
+        color: rgb(49, 147, 177);
     }
 
     .itembox img {

@@ -2,6 +2,7 @@ console.log(location.pathname);
 if (location.pathname == '/swishp/' || location.pathname == '/index.php' || location.pathname == '/') {
     slideShow();
     getSwisTime();
+    HashConvertToLink();
 }
 
 function slideShow() {
@@ -207,4 +208,23 @@ function resetPreview() {
     while (element.firstChild) {
         element.removeChild(element.firstChild);
     }
+}
+
+function HashConvertToLink() {
+    var ele = document.getElementsByClassName('item');
+    let uri = "https://www.google.com/maps/place/";
+
+    for (var i = 0; i < ele.length; i++) {
+        let words = ele[i].textContent.split('#');
+        if (words.length >= 2) {
+            ele[i].innerHTML = words[0];
+            for (var j = 1; j < words.length; j++) {
+                ele[i].innerHTML += "<a href='" + uri + spaceToPlus(words[j]) + "'>#" + words[j] + "</a>";
+            }
+        }
+    }
+}
+
+function spaceToPlus(str) {
+    return str.replace(" ", "+");
 }
