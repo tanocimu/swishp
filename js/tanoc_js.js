@@ -117,6 +117,9 @@ function edit_show(e) {
     let titleelem = document.getElementById('ibtitle' + itemnum);
     let title = 'nontitle';
     let item = document.getElementById('ibitem' + itemnum).innerHTML.replace(/<br>/g, "");
+    // itemのハッシュタグ部分のaタグを削除する
+    item = item.replace(new RegExp('<a[^>]+.*?>', 'g'), '');
+    item = item.replace(new RegExp('</a>', 'g'), '');
     let imageelem = document.getElementById('ibimage' + itemnum);
 
     if (titleelem != null) {
@@ -219,7 +222,7 @@ function HashConvertToLink() {
         if (words.length >= 2) {
             ele[i].innerHTML = words[0];
             for (var j = 1; j < words.length; j++) {
-                ele[i].innerHTML += "<a href='" + uri + spaceToPlus(words[j]) + "'>#" + words[j] + "</a>";
+                ele[i].innerHTML += "<a href='" + uri + spaceToPlus(words[j]) + "' target='_blank' rel='noopener noreferrer'>#" + words[j] + "</a>";
             }
         }
     }

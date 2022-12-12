@@ -33,13 +33,18 @@
 
     .header_right h1 {
         position: absolute;
+        letter-spacing: 0.35em;
         width: calc(100% - 100px);
-        bottom: 50px;
+        /*bottom: 50px;*/
+        bottom: 20px;
         left: 5%;
-        font-size: 5.2vw;
-        line-height: 6vw;
+        /* font-size: 5.2vw;*/
+        font-size: 1.2vw;
+        /*line-height: 6vw;*/
+        line-height: 1.5vw;
         font-weight: bold;
-        color: rgb(217, 220, 213);
+        /*color: rgb(217, 220, 213);*/
+        color: white;
         text-shadow: 1px 1px 3px rgb(59, 59, 59);
     }
 
@@ -104,12 +109,12 @@
         font-size: 1.5vw;
         line-height: 2vw;
         color: rgb(22, 56, 58);
-        height: calc(100% - 230px);
+        height: calc(100% - 120px);
     }
 
     .header_left .etclink {
         position: absolute;
-        height: 230px;
+        height: 120px;
         width: 100%;
         bottom: 0;
         right: 0;
@@ -117,7 +122,7 @@
 
     .header_left .instagram img {
         position: absolute;
-        top: 170px;
+        top: 60px;
         left: 36px;
         width: 29px;
         aspect-ratio: 1 / 1;
@@ -353,9 +358,9 @@
         text-overflow: ellipsis;
     }
 
-    .itembox .item a,
-    .itembox .item a:link {
-        color: rgb(49, 147, 177);
+    .item a,
+    .item a:link {
+        color: rgb(29, 170, 212);
     }
 
     .itembox img {

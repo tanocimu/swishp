@@ -17,6 +17,7 @@ shelfmng_submit();
     <meta property="og:type" content="website">
     <meta property="og:url" content="https:///">
     <meta property="og:description" content="Mountain Top Tourist Servicesの説明を記載">
+    <link rel="icon" href="images/mtts16.png" />
 
     <title>Mountain Top Tourist Services</title>
 

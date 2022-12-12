@@ -153,7 +153,7 @@ take_submit();
                 img.src = url;
                 elem.appendChild(img);
 
-                var button = document.createElement('button');
+                var button = document.createElement('a');
                 button.id = "btn";
                 button.textContent = "×";
                 elem.appendChild(button);
@@ -171,7 +171,7 @@ take_submit();
                 img.src = blobUrl;
                 elem.appendChild(img);
 
-                var button = document.createElement('button');
+                var button = document.createElement('a');
                 button.id = "btn";
                 button.textContent = "×";
                 elem.appendChild(button);
@@ -235,6 +235,9 @@ take_submit();
                             console.error(error);
                         });
                     break;
+                case "btn":
+                    resetPreview();
+                    break;
             }
         });
 
@@ -243,15 +246,14 @@ take_submit();
             formElement.reset();
         }
 
-        document.getElementById("btn").addEventListener("click", function() {
-            resetPreview();
-        });
-
         function resetPreview() {
             var element = document.getElementById("preview");
             while (element.firstChild) {
                 element.removeChild(element.firstChild);
             }
+
+            let imagelm = document.getElementById('stk_imageurl');
+            imagelm.value = "";
         }
     </script>
 </body>
