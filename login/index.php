@@ -51,8 +51,8 @@ take_submit();
                         <label for="stk_item">記事</label>
                         <textarea id="stk_item" type="text" name="stkitem" value=""></textarea>
                         <label for="stk_image">イメージ画像</label>
-                        <input id="stk_image" type="file" name="stkimage[]" accept="image/*">
-                        <input id="stk_imageurl" type="hidden" name="imageurl">
+                        <input id="stk_image" type="file" name="stkimage[]" accept="image/*" multiple>
+                        <input id="stk_imageurl" type="hidden" name="imageurl" multiple>
                         <div id="preview"></div>
                         <button class="stksubmit" id="stksubmit" name="stksubmit" value="stksubmit">投稿</button>
                         <button class="delete" id="delete" name="delete" value="delete">削除</button>
@@ -144,19 +144,25 @@ take_submit();
             var ielem = document.getElementById('stk_imageurl');
 
             if (result['imageurl'] != "") {
+                var imageArray = result['imageurl'].split(',');
+
                 var elem = document.getElementById('preview');
                 elem.style.display = "block";
 
-                var url = "../stock_images/" + result['imageurl'];
-                ielem.value = url;
-                var img = new Image();
-                img.src = url;
-                elem.appendChild(img);
+                for (var index = 0; index < imageArray.length; index++) {
+                    if (imageArray[index] == "") break;
+                    var url = "../stock_images/" + imageArray[index];
+                    var img = new Image();
+                    img.src = url;
+                    elem.appendChild(img);
 
-                var button = document.createElement('a');
-                button.id = "btn";
-                button.textContent = "×";
-                elem.appendChild(button);
+                    ielem.value += url + ",";
+
+                    var button = document.createElement('a');
+                    button.id = "btn";
+                    button.textContent = "×";
+                    elem.appendChild(button);
+                }
             }
         });
 

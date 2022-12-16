@@ -120,7 +120,9 @@ function edit_show(e) {
     // itemのハッシュタグ部分のaタグを削除する
     item = item.replace(new RegExp('<a[^>]+.*?>', 'g'), '');
     item = item.replace(new RegExp('</a>', 'g'), '');
-    let imageelem = document.getElementById('ibimage' + itemnum);
+    //let imageelem = document.getElementById('ibimage' + itemnum);
+    let imageArray = document.getElementById('ib' + itemnum).textContent.split(',');
+
 
     if (titleelem != null) {
         title = titleelem.innerHTML;
@@ -129,14 +131,12 @@ function edit_show(e) {
         title = item.slice(0, 12);
     }
 
-    console.log(title);
     let imageURL = "";
-    let imagetag = "";
     let imgsrc = "";
-    if (imageelem) {
-        imagetag = imageelem.getAttribute('src');
-        imageURL = imagetag.slice(15);
-        imgsrc = `<img src='${imagetag}'>`;
+    for (var index = 0; index < imageArray.length; index++) {
+        if (imageArray[index] == "") break;
+        imageURL = "./stock_images/" + imageArray[index];
+        imgsrc += `<img src='${imageURL}' />`;
     }
 
     var box_elem = document.createElement('div');
@@ -151,8 +151,8 @@ function edit_show(e) {
     <label for='stk_item'>記事</label>
     <textarea id='stk_item' type='text' name='stkitem' value=''>${item}</textarea>
     <label for='stk_image'>イメージ画像</label>
-    <input id='stk_image' type='file' name='stkimage[]' accept='image/*'>
-    <input id='stk_imageurl' type='hidden' name='imageurl' value='${imageURL}'>
+    <input id='stk_image' type='file' name='stkimage[]' accept='image/*' multiple>
+    <input id='stk_imageurl' type='hidden' name='imageurl' value='${imageArray}' multiple>
     <div id='preview'>${imgsrc}</div>
     <button class='stksubmit' id='stksubmit' name='stksubmit' value='stksubmit'>変更</button>
     <button class='delete' id='delete' name='delete' value='delete'>削除</button>
@@ -160,7 +160,7 @@ function edit_show(e) {
 
     overlay.appendChild(box_elem);
 
-    if (imageelem) {
+    if (imageArray) {
         var elem = document.getElementById('preview');
         elem.style.display = "block";
     }

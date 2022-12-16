@@ -95,7 +95,10 @@ function shelfmng_submit()
 {
     if (isset($_POST['stksubmit']) && $_POST['stktitle'] != "" && $_POST['stkitem'] != "") {
         $pdo = db_access();
+        $maximage = 4; // アップロード出来る枚数の上限
         $imageurl = "";
+        $images = "";
+        $imageArray = [];
         $stringtitle = enc($_POST['stktitle']);
         $stringitem = enc($_POST['stkitem']);
         $stringitem = $_POST['stkitem'];
@@ -105,21 +108,28 @@ function shelfmng_submit()
                 $imageurl = uniqid(mt_rand(), true); //ファイル名をユニーク化
                 $imageurl .= '.' . substr(strrchr($_FILES['stkimage']['name'][$i], '.'), 1); //アップロードされたファイルの拡張子を取得
 
+                $images .= $imageurl . ",";
+                array_push($imageArray, $imageurl);
+
                 $str = "@" . date('Y') . " MOUNTAIN TOP TOURIST SERVICES.";
                 imageResizeAndWritetext($_FILES['stkimage']['tmp_name'][$i], $imageurl, $str);
                 //move_uploaded_file($_FILES['stkimage']['tmp_name'][$i],  DIR_STOCKIMAGES . $imageurl); //imagesディレクトリにファイル保存
+
+                if ($i >= $maximage - 1) {
+                    break;
+                }
             }
         }
 
         // stk_num空なら記事を新規作成、あればその番号の記事を更新
         if ($_POST['stknum'] == "") {
-            $sql = "INSERT INTO stockphoto (num, category, title, item, imageurl, updatetime) VALUES (NULL, '" . $_POST['stkcat'] . "', '" . $stringtitle . "', '" . $stringitem . "', '" . $imageurl . "', current_timestamp());";
+            $sql = "INSERT INTO stockphoto (num, category, title, item, imageurl, updatetime) VALUES (NULL, '" . $_POST['stkcat'] . "', '" . $stringtitle . "', '" . $stringitem . "', '" . $images . "', current_timestamp());";
             db_prepare_sql($sql, $pdo);
         } else {
-            if ($imageurl == "" && $_POST['imageurl'] != "") {
-                $imageurl = $_POST['imageurl'];
+            if ($images == "" && $_POST['imageurl'] != "") {
+                $images = $_POST['imageurl'];
             }
-            $sql = "UPDATE stockphoto SET title = '" . $stringtitle . "', item = '" . $stringitem . "', imageurl = '" . $imageurl . "' WHERE stockphoto.num = " . $_POST['stknum'];
+            $sql = "UPDATE stockphoto SET title = '" . $stringtitle . "', item = '" . $stringitem . "', imageurl = '" . $images . "' WHERE stockphoto.num = " . $_POST['stknum'];
             db_prepare_sql($sql, $pdo);
         }
         $_SESSION["success"] = "success";
@@ -291,10 +301,17 @@ function db_itembox_show($category, $maxitem, $status = 0)
         //$text = preg_replace('/^\r\n/m', '', (nl2br(un_enc($row['item']))));
         //$text = strip_tags($text);
         $text = nl2br(un_enc($row['item']));
+        $imageArray = explode(',', $row['imageurl']);
+        $images = "";
+        for ($i = 0; $i < count($imageArray); $i++) {
+            if ($imageArray[$i] == "") break;
+            $images .= $imageArray[$i] . ",";
+        }
+
         $contents = "
         <div class='itembox'>
-        <a class='itembox_mask' for='trigger' id='ib{$row['num']}' tabindex='-1'></a>
-        <img id='ibimage{$row['num']}' src='./stock_images/" . nl2br(un_enc($row['imageurl'])) . "' alt='' />";
+        <a class='itembox_mask' for='trigger' id='ib{$row['num']}' tabindex='-1'>" . $images . "</a>
+        <img id='ibimage{$row['num']}' src='./stock_images/" . $imageArray[0] . "' alt='' />";
         if ($status == 1) {
             $contents .= "<p class='title'><label id='ibtitle{$row['num']}'>" . nl2br(un_enc($row['title'])) . "</label></p>";
         }
