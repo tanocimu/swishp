@@ -95,7 +95,7 @@ function shelfmng_submit()
 {
     if (isset($_POST['stksubmit']) && $_POST['stktitle'] != "" && $_POST['stkitem'] != "") {
         $pdo = db_access();
-        $maximage = 4; // アップロード出来る枚数の上限
+        $maximage = 5; // アップロード出来る枚数の上限
         $imageurl = "";
         $images = "";
         $imageArray = [];
@@ -335,6 +335,7 @@ function db_images_show()
     db_close($pdo);
 
     foreach ($result as $row) {
-        echo "<img src='stock_images/" . $row['imageurl'] . "' alt=''>";
+        $imageArray = explode(',', $row['imageurl']);
+        echo "<img src='stock_images/" . $imageArray[0] . "' alt=''>";
     }
 }

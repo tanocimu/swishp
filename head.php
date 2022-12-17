@@ -21,11 +21,14 @@ shelfmng_submit();
 
     <title>Mountain Top Tourist Services</title>
 
-    <script src="./js/jquery.min.js"></script>
     <link rel="stylesheet" href="reset.css">
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+    <link rel="stylesheet" href="./css/slick.css">
+    <link rel="stylesheet" href="./css/slick-theme.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
     <link rel="stylesheet" href="smaho.css">
+
+    <script src="./js/jquery.min.js"></script>
 </head>

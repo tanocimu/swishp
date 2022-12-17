@@ -151,6 +151,9 @@ take_submit();
 
                 for (var index = 0; index < imageArray.length; index++) {
                     if (imageArray[index] == "") break;
+                    // var imgDiv = document.createElement('div');
+                    //  imgDiv.className = "imageDiv";
+
                     var url = "../stock_images/" + imageArray[index];
                     var img = new Image();
                     img.src = url;
@@ -162,6 +165,10 @@ take_submit();
                     button.id = "btn";
                     button.textContent = "×";
                     elem.appendChild(button);
+
+                    // imgDiv.appendChild(img);
+                    //  imgDiv.appendChild(button);
+                    //  elem.appendChild(imgDiv);
                 }
             }
         });
